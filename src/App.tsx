@@ -116,12 +116,18 @@ export default function App() {
                     <div className="mt-6 grid gap-3">
                       <div className="rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
                         <p className="text-sm text-zinc-300">Primary stack</p>
-                        <p className="mt-1 text-sm font-medium text-white">React · TypeScript · Tailwind</p>
+                        <p className="mt-1 text-sm font-medium text-white">React · TypeScript · Next.js · Tailwind · Node.js · Express · MongoDB · Git</p>
                       </div>
                       <div className="rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
                         <p className="text-sm text-zinc-300">What I deliver</p>
                         <p className="mt-1 text-sm font-medium text-white">
-                          Responsive UI, clean components, and solid functionality.
+                          Modern Responsive Website
+                          • High-Performance Web Applications
+                          • Secure Backend & API Development
+                          • SEO-Optimized Websites for Better Visibility
+                          • Scalable and Future-Ready Web Architecture
+                          • Fast, Clean, and Maintainable Code
+                          • Custom Web Solutions for Businesses & more
                         </p>
                       </div>
                     </div>
@@ -178,7 +184,7 @@ export default function App() {
           </Container>
         </section>
 
-        <section id="skills" className="py-12 sm:py-16">
+        <section id="skills" className="py-8 sm:py-16">
           <Container>
             <SectionHeader title="Skills" subtitle="Technologies I use to build real products." />
             <div className="mt-8 grid gap-6 lg:grid-cols-3">
@@ -267,7 +273,7 @@ export default function App() {
           </Container>
         </section>
 
-        <section id="education" className="py-12 sm:py-16">
+        <section id="education" className="py-10 sm:py-16">
           <Container>
             <SectionHeader title="Education" subtitle="My education background." />
             <div className="mt-8 grid gap-6">
@@ -320,7 +326,8 @@ export default function App() {
               <div className="lg:col-span-5">
                 <Card>
                   <div className="p-6 sm:p-8">
-                    <p className="text-sm font-medium text-white">Direct</p>
+                    <p className="text-sm font-medium text-white">Direct Contact</p>
+                    
                     <div className="mt-4 grid gap-3 text-sm">
                       <a
                         className="rounded-xl bg-white/5 p-4 ring-1 ring-white/10 hover:bg-white/10 transition"
@@ -337,20 +344,20 @@ export default function App() {
                         <div className="mt-1 text-zinc-400">{PROFILE.phone}</div>
                       </a>
                       <a
-                        className="rounded-xl bg-white/5 p-4 ring-1 ring-white/10 hover:bg-white/10 transition"
-                        href={`https://wa.me/${PROFILE.whatsapp.replace(/[^\d]/g, '')}`}
+        className="group  items-center gap-4 rounded-xl bg-green-500/10 p-4 ring-1 ring-green-500/30 hover:bg-green-500/20 transition"
+        href={`https://wa.me/${PROFILE.whatsapp.replace(/[^\d]/g, "")}?text=Hello%20I%20visited%20your%20portfolio%20and%20want%20to%20discuss%20a%20project`}
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <div className="text-white">WhatsApp</div>
+                        <div className="text-white mb-2">WhatsApp</div>
                         <div className="mt-1 text-zinc-400">{PROFILE.whatsapp}</div>
                       </a>
                     </div>
-                    <div className="mt-6">
+                    {/* <div className="mt-6">
                       <ButtonLink href={PROFILE.resumeUrl} download variant="secondary" className="w-full">
                         Download CV
                       </ButtonLink>
-                    </div>
+                    </div> */}
                   </div>
                 </Card>
               </div>
