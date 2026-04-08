@@ -47,14 +47,31 @@ export default function ContactForm() {
 
     try {
       setStatus('sending')
+      const cleanName = name.trim()
+      const cleanEmail = fromEmail.trim()
+      const cleanSubject = subject.trim()
+      const cleanMessage = message.trim()
+      const formattedMessage =
+        `From Name: ${cleanName}\n` +
+        `From Email: ${cleanEmail}\n` +
+        `Subject: ${cleanSubject}\n\n` +
+        `Message:\n${cleanMessage}`
+
       await emailjs.send(
         serviceId!,
         templateId!,
         {
-          from_name: name.trim(),
-          from_email: fromEmail.trim(),
-          subject: subject.trim(),
-          message: message.trim(),
+          from_name: cleanName,
+          from_email: cleanEmail,
+          email: cleanEmail,
+          sender_email: cleanEmail,
+          reply_to: cleanEmail,
+          subject: cleanSubject,
+          user_subject: cleanSubject,
+          title: cleanSubject,
+          message: formattedMessage,
+          raw_message: cleanMessage,
+          sender_info: `Name: ${cleanName}, Email: ${cleanEmail}`,
         },
         { publicKey: publicKey! },
       )
@@ -65,7 +82,11 @@ export default function ContactForm() {
       setMessage('')
     } catch (err) {
       setStatus('error')
-      setErrorText('Failed to send. Please try again or contact me directly.')
+      const message =
+        typeof err === 'object' && err && 'text' in err
+          ? String((err as { text?: unknown }).text ?? 'Failed to send.')
+          : 'Failed to send.'
+      setErrorText(`${message} Please try again or contact me directly.`)
       // eslint-disable-next-line no-console
       console.error(err)
     }
