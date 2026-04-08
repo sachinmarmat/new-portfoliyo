@@ -30,3 +30,19 @@ Recommended EmailJS template variables:
 - `subject`
 - `message`
 
+## Deployment (important for email sending)
+
+If email works on localhost but fails after deploy, configure both:
+
+1. **Hosting environment variables** (Vercel/Netlify/etc):
+   - `VITE_EMAILJS_SERVICE_ID`
+   - `VITE_EMAILJS_TEMPLATE_ID`
+   - `VITE_EMAILJS_PUBLIC_KEY`
+   Then redeploy.
+
+2. **EmailJS domain allowlist / security settings**:
+   - Add your deployed domain URL(s), e.g. `https://your-site.vercel.app`
+   - Add custom domain too, if used
+
+Without these two steps, deployed contact form requests can be blocked (often 403).
+

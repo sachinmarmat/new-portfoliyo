@@ -3,6 +3,7 @@ import emailjs from '@emailjs/browser'
 import { Button } from './Button'
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
+type EmailJsErrorLike = { text?: unknown; status?: unknown }
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
@@ -82,11 +83,25 @@ export default function ContactForm() {
       setMessage('')
     } catch (err) {
       setStatus('error')
-      const message =
-        typeof err === 'object' && err && 'text' in err
-          ? String((err as { text?: unknown }).text ?? 'Failed to send.')
-          : 'Failed to send.'
-      setErrorText(`${message} Please try again or contact me directly.`)
+      const errObj = (typeof err === 'object' && err ? err : {}) as EmailJsErrorLike
+      const rawMessage = String(errObj.text ?? 'Failed to send.')
+      const statusCode = Number(errObj.status ?? 0)
+
+      if (statusCode === 403) {
+        setErrorText(
+          'Email send blocked (403). In EmailJS, allow your deployed domain in account/security settings, then try again.',
+        )
+      } else if (
+        rawMessage.toLowerCase().includes('public key') ||
+        rawMessage.toLowerCase().includes('service') ||
+        rawMessage.toLowerCase().includes('template')
+      ) {
+        setErrorText(
+          `${rawMessage} Check VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, and VITE_EMAILJS_PUBLIC_KEY in your deployment environment variables.`,
+        )
+      } else {
+        setErrorText(`${rawMessage} Please try again or contact me directly.`)
+      }
       // eslint-disable-next-line no-console
       console.error(err)
     }
@@ -96,8 +111,9 @@ export default function ContactForm() {
     <form onSubmit={onSubmit} className="space-y-4">
       {!enabled ? (
         <div className="rounded-xl bg-amber-500/10 p-4 text-sm text-amber-200 ring-1 ring-amber-500/20">
-          Email sending is not configured yet. Add EmailJS keys in a <code>.env</code> file (see{' '}
-          <code>.env.example</code>), then restart.
+          Email sending is not configured yet. For local use <code>.env</code>; for deployed site add
+          these same <code>VITE_EMAILJS_*</code> values in your hosting provider environment
+          settings, then redeploy.
         </div>
       ) : null}
 
