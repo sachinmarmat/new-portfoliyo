@@ -125,7 +125,6 @@ export default function App() {
                           • High-Performance Web Applications
                           • Secure Backend & API Development
                           • SEO-Optimized Websites for Better Visibility
-                          • Scalable and Future-Ready Web Architecture
                           • Fast, Clean, and Maintainable Code
                           • Custom Web Solutions for Businesses & more
                         </p>
