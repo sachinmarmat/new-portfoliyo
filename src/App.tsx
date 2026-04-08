@@ -49,17 +49,17 @@ export default function App() {
               <NavLink href="#contact" label="Contact" />
             </nav>
             <div className="flex items-center gap-2">
-              <ButtonLink
+              {/* <ButtonLink
                 href={PROFILE.resumeUrl}
                 download
                 variant="secondary"
                 className="hidden sm:inline-flex"
               >
                 Download CV
-              </ButtonLink>
-              {/* <ButtonLink href="#contact" variant="primary">
-                Contact Me
               </ButtonLink> */}
+              <ButtonLink href="#contact" variant="primary">
+                Contact Me
+              </ButtonLink>
             </div>
           </div>
         </Container>
